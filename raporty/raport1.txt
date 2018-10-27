@@ -1,0 +1,2 @@
+RAPORT 1
+W tym togodniu nie zacz¹³em jescze pracy bezpoœrednio nad projektem, a czas poœwiêci³me na przyswojenie sk³adni C# oraz naukê podstaw .Net.
