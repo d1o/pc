@@ -1,0 +1,6 @@
+RAPORT 3
+Ponownie wiêkszoœæ czasu spêdzi³em na czytaniu dokumentacji oraz szukaniu informacji. Tym razem jednak zacz¹³em pracê ju¿ na samym kodem, po³¹czy³em siê z
+baz¹ danych poprzez Entity Framework oraz stworzy³em pierwsze modele. Po uruchumieniu wyœwietla siê teraz lista produktów, która jest przekazywana do db 
+w trakcie uruchomienia.
+Zapewne w dalszym ci¹gu du¿o czasu poœwiêcê na wyszukanie i zrozumienie dzia³ania poszczegó³nych elementów asp.net, ale chcia³bym do czasu kolejnego 
+raportu równie¿ rozwin¹æ nieco aplikacjê.
