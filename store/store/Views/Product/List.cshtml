@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+@foreach (var prod in Model)
+{
+    <div>
+        <h3>@prod.Name - @prod.Author</h3>
+        <h4>@prod.Price.ToString("c")</h4>
+        <h5>@prod.Description</h5>
+    </div>
+}

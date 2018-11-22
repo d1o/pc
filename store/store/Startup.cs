@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using store.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace store
 {
@@ -31,7 +34,10 @@ namespace store
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
+			services.AddDbContext<ApplicationDbContext>(options =>
+				options.UseSqlServer(Configuration["Data:storeProducts:ConnectionString"]));
 
+			services.AddTransient<IProductRepository, ProductRepository>();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
@@ -41,6 +47,7 @@ namespace store
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseStatusCodePages();
 			}
 			else
 			{
@@ -56,8 +63,9 @@ namespace store
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Product}/{action=List}/{id?}");
 			});
+			SeedData.EnsurePopulated(app);
 		}
 	}
 }
