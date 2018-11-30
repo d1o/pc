@@ -1,0 +1,2 @@
+RAPORT 4
+W poprzednim tygodniu skupi³em siê na temacie stronicowania. W tym tygodniu zamierzam dodaæ kod, który bêdzie to robi³ z danym wyœwietlanymi w widoku, w oparciu o viewmodel.
