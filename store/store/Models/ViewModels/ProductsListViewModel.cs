@@ -10,5 +10,7 @@ namespace store.Models.ViewModels
 	{
 		public IEnumerable<Product> Products { get; set; }
 		public PagingInfo PagingInfo { get; set; }
+		public string ChosenCategpry { get; set; }
+
 	}
 }

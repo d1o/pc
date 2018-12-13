@@ -1,0 +1,3 @@
+RAPORT 5 i 6
+W poprzednim tygodniu doda³em stronicowanie listy produktów opart¹ na taghelper. W tym tygodniu doda³em menu kategorii jako viewcomponent.
+W przysz³ym tygodnie skupiê siê na stworzeniu koszyka.

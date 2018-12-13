@@ -11,18 +11,19 @@ namespace store.Controllers
     public class ProductController : Controller
     {
 		private IProductRepository repository;
-		public int PageSize = 5;
+		public int PageSize = 100;
 
         public ProductController(IProductRepository rep)
 		{
 			repository = rep;
 		}
 
-		public ViewResult List(int productPage = 1)
+		public ViewResult List(string category, int productPage = 1)
 		{
 			return View(new ProductsListViewModel
 			{
 				Products = repository.Products
+					.Where(p => category == null || p.Category == category)
 					.OrderBy(p => p.ProductID)
 					.Skip((productPage - 1) * PageSize)
 					.Take(PageSize),
@@ -31,7 +32,8 @@ namespace store.Controllers
 					CurrentPage = productPage,
 					ItemsPerPage = PageSize,
 					TotalItems = repository.Products.Count()
-				}
+				},
+				ChosenCategpry = category
 			});
 
 		}

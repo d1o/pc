@@ -2,13 +2,10 @@
 
 @foreach (var prod in Model.Products)
 {
-    <div>
-        <h3>@prod.Name - @prod.Author</h3>
-        <span class="label label-info" style="float:right">@prod.Price.ToString("c")</span>
-        <h5>@prod.Category</h5>
-        <h5>@prod.Description</h5>
-    </div>
+    @Html.Partial("ProductPartialView", prod)
 }
 
+<!--
 <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true" page-class="btn" page-class-normal="btn-secondary"
 page-class-selected="btn-primary" class="btn-group pull-right"></div>
+-->
