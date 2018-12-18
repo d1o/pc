@@ -7,7 +7,7 @@ using store.Models;
 using store.Models.ViewModels;
 
 namespace store.Controllers
-{
+{	
     public class ProductController : Controller
     {
 		private IProductRepository repository;

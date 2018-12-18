@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using store.Models;
 
 namespace store.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181218002427_ChangeInOrders2")]
+    partial class ChangeInOrders2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,8 @@ namespace store.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<decimal>("ShippingCost");
+                    b.Property<string>("ShippingCost")
+                        .IsRequired();
 
                     b.Property<string>("Street")
                         .IsRequired();

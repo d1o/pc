@@ -1,0 +1,38 @@
+﻿@model CartIndexViewModel
+
+<h2>Podsumowanie twojego zamówienia:</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Przedmiot</th>
+            <th>Ilość</th>
+            <th>Cena za sztukę</th>
+            <th>Całkowita cena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Cart.AllItems)
+        {
+            <tr>
+                <td>@i.Product.Name - @i.Product.Author</td>
+                <td>@i.Quantity</td>
+                <td>@i.Product.Price.ToString("c")</td>
+                <td>@((i.Quantity * i.Product.Price).ToString("c"))</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Całkowita cena:</td>
+            <td class="text-right">@Model.Cart.TotalValue().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Kontynuuj zakupy</a>
+    <br />
+    <br />
+    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Potwierdź zamówienie</a>
+</div>

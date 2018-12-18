@@ -1,0 +1,38 @@
+﻿@model Order
+
+<h2>Potwierdzenie zamówienia</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Checkout" method="post">
+    <p>Koszt dostawy: 15 zł</p>
+
+    <p>Wprowadź dane potrzebne do wysyłki</p>
+    <h3>Odbiorca *</h3>
+    <div class="form-group">
+        <input asp-for="Name" placeholder="np. Jan Kowalski" class="form-control" />
+    </div>
+    <h3>Ulica *</h3>
+    <div class="form-group">
+        <input asp-for="Street" placeholder="np. Przyjazna" class="form-control" />
+    </div>
+    <h3>Numer domu *</h3>
+    <div class="form-group">
+        <input asp-for="StreetNumber" placeholder="np. 2" class="form-control" />
+    </div>
+    <h3>Numer mieszkania</h3>
+    <div class="form-group">
+        <input asp-for="HouseNumber" placeholder="np. 2" class="form-control" />
+    </div>
+    <h3>Miejscowość *</h3>
+    <div class="form-group">
+        <input asp-for="City" placeholder="np. Warszawa" class="form-control" />
+    </div>
+    <h3>Kod pocztowy *</h3>
+    <div class="form-group">
+        <input asp-for="Zip" placeholder="np. 44-100" class="form-control" />
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Złóż zamówienie" />
+    </div>
+</form>
