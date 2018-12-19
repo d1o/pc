@@ -20,7 +20,10 @@ namespace store.Models
 		public void SaveOrder(Order order)
 		{
 			context.AttachRange(order.Items.Select(l => l.Product));
-			context.Orders.Add(order);
+			if (order.OrderID == 0)
+			{
+				context.Orders.Add(order);
+			}
 			context.SaveChanges();
 		}
 	}

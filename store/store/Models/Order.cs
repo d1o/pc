@@ -15,19 +15,22 @@ namespace store.Models
 		public ICollection<CartItem> Items { get; set; }
 
 
-		[Required(ErrorMessage = "Należy podać imię i nazwisko odbiorcy")]
+		[Required(ErrorMessage = "Proszę podać imię i nazwisko odbiorcy")]
 		public string Name { get; set; }
 
-		[Required(ErrorMessage = "Należy podać dane oznaczone *")]
+		[Required(ErrorMessage = "Proszę podać ulicę")]
 		public string Street { get; set; }
-		[Required(ErrorMessage = "Należy podać dane oznaczone *")]
+		[Required(ErrorMessage = "Proszę podać numer domu")]
 		public string StreetNumber { get; set; }
 		public string HouseNumber { get; set; }
-		[Required(ErrorMessage = "Należy podać dane oznaczone *")]
+		[Required(ErrorMessage = "Proszę podać miasto")]
 		public string City { get; set; }
-		[Required(ErrorMessage = "Należy podać dane oznaczone *")]
+		[Required(ErrorMessage = "Proszę podać kod pocztowy")]
 		public string Zip { get; set; }
 
 		public int ShippingCost { get; set; } = 15;
+
+		[BindNever]
+		public bool IsShipped { get; set; }
 	}
 }

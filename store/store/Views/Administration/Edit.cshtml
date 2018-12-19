@@ -1,0 +1,40 @@
+﻿@model Product
+
+@{
+    ViewBag.Title = "Edycja produktu";
+    Layout = "_ALayout";
+}
+<h2>Edycja produktu</h2>
+<br />
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ProductID" />
+    <div class="form-group">
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <h4>Nazwa:</h4>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Author" class="text-danger"></span>
+        <h4>Autor:</h4>
+        <input asp-for="Author" class="form-control" />
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <h4>Opis:</h4>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Category" class="text-danger"></span>
+        <h4>Katgoria:</h4>
+        <input asp-for="Category" class="form-control" />
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Price" class="text-danger"></span>
+        <h4>Cena:</h4>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+        <a asp-action="ManageProducts" class="btn btn-secondary">Anuluj</a>
+    </div>
+</form>

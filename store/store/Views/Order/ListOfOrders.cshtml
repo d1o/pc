@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewBag.Title = "Zarządzaj zamówieniami";
+    Layout = "_ALayout";
+}
+
+@if (Model.Where(o => !o.IsShipped).Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Odbiorca</th>
+                <th>Ulica</th>
+                <th>Miasto</th>
+                <th>Kod pocztowy</th>
+                <th>Dostarczone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model.Where(o => !o.IsShipped))
+            {
+                <tr>
+                    <td>@o.OrderID</td>
+                    <td>@o.Name</td>
+                    <td>@o.Street  @o.StreetNumber @o.HouseNumber</td>
+                    <td>@o.City</td>
+                    <td>@o.Zip</td>
+                    <td>
+                        <form asp-action="ChangeToShipped" method="post">
+                            <input type="hidden" name="orderId" value="@o.OrderID" />
+                            <button type="submit" class="btn btn-sm btn-succes">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @foreach (var i in o.Items)
+                {
+                    <tr>
+                        <td colspan="4">@i.Product.Name - @i.Product.Author</td>
+                        <td>@i.Quantity</td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <h2>Wszystkie zamówienia zostały zrealizowane</h2>
+    </div>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Odbiorca</th>
+            <th>Adres</th>
+            <th>Miejscowość</th>
+            <th>Kod pocztowy</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model.Where(o => o.IsShipped))
+        {
+            <tr>
+                <td>@o.OrderID</td>
+                <td>@o.Name</td>
+                <td>@o.Street  @o.StreetNumber @o.HouseNumber</td>
+                <td>@o.City</td>
+                <td>@o.Zip</td>
+            </tr>
+            @foreach (var i in o.Items)
+            {
+                <tr>
+                    <td colspan="3">@i.Product.Name - @i.Product.Author</td>
+                    <td>@i.Quantity</td>
+                    <td></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

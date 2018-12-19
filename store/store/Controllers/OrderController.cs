@@ -45,5 +45,23 @@ namespace store.Controllers
 			cart.Clear();
 			return View(order);
 		}
-    }
+
+		public ViewResult ListOfOrders()
+		{
+			//return View(repository.Orders.Where(o => !o.IsShipped));
+			return View(repository.Orders);
+		}
+
+		[HttpPost]
+		public IActionResult ChangeToShipped(int orderID)
+		{
+			Order order = repository.Orders.FirstOrDefault(o => o.OrderID == orderID);
+			if (order != null)
+			{
+				order.IsShipped = true;
+				repository.SaveOrder(order);
+			}
+			return RedirectToAction(nameof(ListOfOrders));
+		}
+	}
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace store.Models
 {
-	public class TestRepo : IProductRepository
+	public class TestRepo// : IProductRepository
 	{
 		public IQueryable<Product> Products => new List<Product>
 		{

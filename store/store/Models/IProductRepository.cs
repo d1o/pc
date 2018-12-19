@@ -8,5 +8,9 @@ namespace store.Models
 	public interface IProductRepository
 	{
 		IQueryable<Product> Products { get; }
+
+		void EditProduct(Product product);
+		void AddProduct(Product product);
+		void DeleteProduct(int productID);
 	}
 }

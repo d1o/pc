@@ -21,7 +21,7 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container col-md-9">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -29,28 +29,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">store</a>
+                <a class="navbar-brand"><b>ADMINISTRACJA</b></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><p>ADMINISTRACJA</p></li>
                 </ul>
             </div>
-        </div>
-        <div class="col-md-3">
-            @await Component.InvokeAsync("CartNav")
         </div>
     </nav>
 
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        <div class="col-md-2">
-            @await Component.InvokeAsync("NavMenu")
-        </div>
-        <div class="col-md-10">
+        <div>
             @RenderBody()
         </div>
         
