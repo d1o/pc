@@ -5,12 +5,17 @@
         <h3>@Model.Name - @Model.Author</h3>
         <span class="label label-info" style="float:right">@Model.Price.ToString("c")</span>
         <h5>@Model.Category</h5>
-        <h5>@Model.Description</h5>
     </div>
 
     <form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart" method="post">
         <input type="hidden" asp-for="ProductID" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <button type="submit" class="btn btn-danger">Do koszyka</button>
+    </form>
+
+    <form id="@Model.ProductID" asp-controller="Product" asp-action="Details" method="post">
+        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="btn btn-primary">Zobacz szczegóły</button>
     </form>
 </div>

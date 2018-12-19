@@ -1,0 +1,22 @@
+﻿@model Product
+
+<div>
+    <div style="float:right">
+        <img img alt="No Image" src="@ViewBag.imgPath" asp-append-version="true" />
+    </div>
+    <div>
+        <h3>@Model.Name - @Model.Author</h3>
+        <span class="label label-info">@Model.Price.ToString("c")</span>
+        <h5>@Model.Category</h5>
+        <p>@Model.Description</p>
+    </div>
+</div>
+    
+<div>
+    <form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart" method="post">
+        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" name="returnUrl" value="@ViewBag.rUrl" />
+        <button type="submit" class="btn btn-danger">Do koszyka</button>
+        <a class="btn btn-primary" href="@ViewBag.rUrl">Powrót</a>
+    </form>
+</div>

@@ -37,5 +37,14 @@ namespace store.Controllers
 			});
 
 		}
+
+		public ViewResult Details(int productID, string returnUrl)
+		{
+			Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);
+			ViewBag.rUrl = returnUrl;
+			ViewBag.imgPath = "~/images/prodcutsimg/" + product.ProductID.ToString() + ".jpg";
+			
+			return View(product);
+		}
     }
 }

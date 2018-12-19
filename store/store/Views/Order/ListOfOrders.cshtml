@@ -5,6 +5,7 @@
     Layout = "_ALayout";
 }
 
+<h2>Niezrealizowane zamówienia:</h2>
 @if (Model.Where(o => !o.IsShipped).Count() > 0)
 {
     <table class="table table-bordered table-striped">
@@ -15,6 +16,7 @@
                 <th>Ulica</th>
                 <th>Miasto</th>
                 <th>Kod pocztowy</th>
+                <th>Kwota</th>
                 <th>Dostarczone</th>
             </tr>
         </thead>
@@ -27,6 +29,9 @@
                     <td>@o.Street  @o.StreetNumber @o.HouseNumber</td>
                     <td>@o.City</td>
                     <td>@o.Zip</td>
+                    <td>
+
+                    </td>
                     <td>
                         <form asp-action="ChangeToShipped" method="post">
                             <input type="hidden" name="orderId" value="@o.OrderID" />
@@ -55,6 +60,7 @@ else
     </div>
 }
 
+<h2>Historia zamówień:</h2>
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
