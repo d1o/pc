@@ -31,10 +31,10 @@
                 <td>@i.Price</td>
                 <td>@i.Category</td>
                 <td class="text-center">
-                    <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-productId="@i.ProductID">Edytuj</a>
+                    <a asp-action="EditProd" class="btn btn-sm btn-warning" asp-route-productId="@i.ProductID">Edytuj</a>
                 </td>
                 <td class="text-center">
-                    <form asp-action="Delete" method="post">
+                    <form asp-action="DeleteProd" method="post">
                         <input type="hidden" name="ProductID" value="@i.ProductID" />
                         <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
                     </form>

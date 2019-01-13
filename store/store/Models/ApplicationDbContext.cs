@@ -16,5 +16,6 @@ namespace store.Models
 
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Order> Orders { get; set; }
+		public DbSet<Comment> Comments { get; set; }
 	}
 }

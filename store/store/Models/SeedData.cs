@@ -100,6 +100,37 @@ namespace store.Models
 				);
 				context.SaveChanges();
 			}
+
+			if (!context.Comments.Any())
+			{
+				context.Comments.AddRange(
+					new Comment
+					{
+						Author = "test 1",
+						Body = "test",
+						CommentedProdid = 1
+					},
+					new Comment
+					{
+						Author = "test 2",
+						Body = "test",
+						CommentedProdid = 1
+					},
+					new Comment
+					{
+						Author = "test 3",
+						Body = "test",
+						CommentedProdid = 2
+					},
+					new Comment
+					{
+						Author = "test 4",
+						Body = "test",
+						CommentedProdid = 4
+					}
+				);
+				context.SaveChanges();
+			}
 		}
 	}
 }

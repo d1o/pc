@@ -26,5 +26,6 @@ namespace store.Models
 
 		[Required(ErrorMessage = "Kategoria jest wymagana")]
 		public string Category { get; set; }
+
 	}
 }

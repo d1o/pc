@@ -9,29 +9,31 @@ namespace store.Controllers
 {
     public class AdministrationController : Controller
     {
-		private IProductRepository repository;
+		private IProductRepository repositoryP;
+		private ICommentRepository repositoryC;
 
-		public AdministrationController(IProductRepository r)
+		public AdministrationController(IProductRepository r, ICommentRepository c)
 		{
-			repository = r;
+			repositoryP = r;
+			repositoryC = c;
 		}
 
 		public ViewResult ManageProducts()
 		{
-			return View(repository.Products);
+			return View(repositoryP.Products);
 		}
 
 		public ViewResult Edit(int productID)
 		{
-			return View(repository.Products.FirstOrDefault(p => p.ProductID == productID));
+			return View(repositoryP.Products.FirstOrDefault(p => p.ProductID == productID));
 		}
 
 		[HttpPost]
-		public IActionResult Edit(Product product)
+		public IActionResult EditProd(Product product)
 		{
 			if (ModelState.IsValid)
 			{
-				repository.EditProduct(product);
+				repositoryP.EditProduct(product);
 				return RedirectToAction("ManageProducts");
 			}
 			else
@@ -50,7 +52,7 @@ namespace store.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				repository.AddProduct(product);
+				repositoryP.AddProduct(product);
 				return RedirectToAction("ManageProducts");
 			}
 			else
@@ -60,10 +62,22 @@ namespace store.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Delete(int productId)
+		public IActionResult DeleteProd(int productId)
 		{
-			repository.DeleteProduct(productId);
+			repositoryP.DeleteProduct(productId);
 			return RedirectToAction("ManageProducts");
+		}
+
+		[HttpPost]
+		public IActionResult DeleteCom(int commentID)
+		{
+			repositoryC.DeleteComment(commentID);
+			return RedirectToAction("ManageComments");
+		}
+
+		public ViewResult ManageComments()
+		{
+			return View(repositoryC.Comments);
 		}
 	}
 }

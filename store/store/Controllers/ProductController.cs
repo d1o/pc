@@ -10,19 +10,21 @@ namespace store.Controllers
 {	
     public class ProductController : Controller
     {
-		private IProductRepository repository;
+		private IProductRepository repositoryP;
+		private ICommentRepository repositoryC;
 		public int PageSize = 100;
 
-        public ProductController(IProductRepository rep)
+        public ProductController(IProductRepository rep, ICommentRepository com)
 		{
-			repository = rep;
+			repositoryP = rep;
+			repositoryC = com;
 		}
 
 		public ViewResult List(string category, int productPage = 1)
 		{
 			return View(new ProductsListViewModel
 			{
-				Products = repository.Products
+				Products = repositoryP.Products
 					.Where(p => category == null || p.Category == category)
 					.OrderBy(p => p.ProductID)
 					.Skip((productPage - 1) * PageSize)
@@ -31,20 +33,39 @@ namespace store.Controllers
 				{
 					CurrentPage = productPage,
 					ItemsPerPage = PageSize,
-					TotalItems = repository.Products.Count()
+					TotalItems = repositoryP.Products.Count()
 				},
-				ChosenCategpry = category
+				ChosenCategory = category
 			});
 
 		}
 
 		public ViewResult Details(int productID, string returnUrl)
 		{
-			Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);
+			Product product = repositoryP.Products.FirstOrDefault(p => p.ProductID == productID);
 			ViewBag.rUrl = returnUrl;
 			ViewBag.imgPath = "~/images/prodcutsimg/" + product.ProductID.ToString() + ".jpg";
-			
-			return View(product);
+			List<Comment> C = repositoryC.Comments.Where(c => c.CommentedProdid == product.ProductID).ToList();
+
+			return View(new DetailsViewModel
+			{
+				Product = product,
+				Comments = C
+			});
+		}
+
+		public IActionResult AddComment(string author, string body, int productID, string returnUrl)
+		{
+			Comment c = new Comment
+			{
+				Author = author,
+				Body = body,
+				CommentedProdid = productID
+			};
+
+			repositoryC.AddComment(c);
+
+			return RedirectToAction("Details", new { productID, returnUrl });
 		}
     }
 }

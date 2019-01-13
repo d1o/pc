@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Comment>
+
+@{
+    ViewBag.Title = "Zarządzaj komentarzami";
+    Layout = "_ALayout";
+}
+
+<br />
+<div class="text-center">
+    <p>Zarządaj komentarzami</p>
+</div>
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Autor</th>
+            <th>ID komentowanego produktu</th>
+            <th>Treść</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.CommentID</td>
+                <td>@i.Author</td>
+                <td>@i.CommentedProdid</td>
+                <td>@i.Body</td>
+                <td class="text-center">
+                    <form asp-action="DeleteCom" method="post">
+                        <input type="hidden" name="CommentID" value="@i.CommentID" />
+                        <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

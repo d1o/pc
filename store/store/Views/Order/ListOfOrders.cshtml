@@ -5,7 +5,7 @@
     Layout = "_ALayout";
 }
 
-<h2>Niezrealizowane zamówienia:</h2>
+<h3>Niezrealizowane zamówienia:</h3>
 @if (Model.Where(o => !o.IsShipped).Count() > 0)
 {
     <table class="table table-bordered table-striped">
@@ -60,7 +60,7 @@ else
     </div>
 }
 
-<h2>Historia zamówień:</h2>
+<h3>Historia zamówień:</h3>
 <table class="table table-bordered table-hover">
     <thead>
         <tr>

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using store.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace store
@@ -39,6 +38,7 @@ namespace store
 
 			services.AddTransient<IProductRepository, ProductRepository>();
 			services.AddTransient<IOrderRepository, OrderRepository>();
+			services.AddTransient<ICommentRepository, CommentRepository>();
 			services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
