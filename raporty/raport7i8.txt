@@ -1,0 +1,3 @@
+RAPORT 7 i 8
+W poprzednim tygodniu doda³em komentarze na stronach produktów.
+W tym tygodniu czyta³em na temat ASP.Net Core Identity, zamierzam skupiæ siê obecnie na dodaniu kont u¿ytkowników.
