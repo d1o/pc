@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using store.Models;
@@ -36,6 +37,23 @@ namespace store
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration["Data:storeProducts:ConnectionString"]));
 
+			services.AddDbContext<AppIdentityDbContext>(options =>
+				options.UseSqlServer(Configuration["Data:storeIdentity:ConnectionString"]));
+
+			services.AddIdentity<AppUser, IdentityRole>( o => 
+			{
+				o.Password.RequiredLength = 5;
+				o.Password.RequireDigit = false;
+				o.Password.RequireLowercase = false;
+				o.Password.RequireUppercase = false;
+				o.Password.RequireNonAlphanumeric = false;
+
+				o.User.RequireUniqueEmail = true;
+				o.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz1234567890_-.@";
+			})
+				.AddEntityFrameworkStores<AppIdentityDbContext>()
+				.AddDefaultTokenProviders();
+
 			services.AddTransient<IProductRepository, ProductRepository>();
 			services.AddTransient<IOrderRepository, OrderRepository>();
 			services.AddTransient<ICommentRepository, CommentRepository>();
@@ -64,6 +82,7 @@ namespace store
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
 			app.UseSession();
+			app.UseAuthentication();
 
 			app.UseMvc(routes =>
 			{
@@ -91,7 +110,9 @@ namespace store
 					name: null,
 					template: "{controller}/{action}/{id?}");
 			});
+
 			SeedData.EnsurePopulated(app);
+			AppIdentityDbContext.AddAdminAccount(app.ApplicationServices, Configuration).Wait();
 		}
 	}
 }

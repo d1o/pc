@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using store.Models;
 
 namespace store.Controllers
 {
-    public class AdministrationController : Controller
+	[Authorize(Roles = "Admin")]
+	public class AdministrationController : Controller
     {
 		private IProductRepository repositoryP;
 		private ICommentRepository repositoryC;
+		private UserManager<AppUser> userMgr;
 
-		public AdministrationController(IProductRepository r, ICommentRepository c)
+		public AdministrationController(IProductRepository r, ICommentRepository c, UserManager<AppUser> u)
 		{
 			repositoryP = r;
 			repositoryC = c;
+			userMgr = u;
 		}
 
 		public ViewResult ManageProducts()
@@ -78,6 +83,71 @@ namespace store.Controllers
 		public ViewResult ManageComments()
 		{
 			return View(repositoryC.Comments);
+		}
+
+		public ViewResult ManageUsers()
+		{
+			return View(userMgr.Users);
+		}
+
+		public ViewResult CreateUser()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateUser(CreateUserModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				AppUser user = new AppUser
+				{
+					Email = model.Email,
+					UserName = model.Email
+				};
+
+				IdentityResult result = await userMgr.CreateAsync(user, model.Password);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("ManageUsers");
+				}
+				else
+				{
+					foreach (IdentityError e in result.Errors)
+					{
+						ModelState.AddModelError("", e.Description);
+					}
+				}
+			}
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteUser(string id)
+		{
+			AppUser u = await userMgr.FindByIdAsync(id);
+			if (User != null)
+			{
+				IdentityResult result = await userMgr.DeleteAsync(u);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("ManageUsers");
+				}
+				else
+				{
+					foreach (IdentityError e in result.Errors)
+					{
+						ModelState.AddModelError("", e.Description);
+					}
+				}
+			}
+			else
+			{
+				ModelState.AddModelError("", "Nie znaleziono użytkownika");
+			}
+			
+			//return View("ManageUsers", userMgr.Users);
+			return View("ManageUsers");
 		}
 	}
 }

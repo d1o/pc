@@ -4,7 +4,7 @@
     @if (Model.AllItems.Count() > 0)
     {
         <small class="navbar-text">
-            <b>w koszyku @Model.AllItems.Sum(x => x.Quantity) produkty(ów)</b>
+            <b>produkty w koszyku: @Model.AllItems.Sum(x => x.Quantity)</b>
         </small>
     }
     else
