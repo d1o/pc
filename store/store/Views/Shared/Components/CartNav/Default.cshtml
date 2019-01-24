@@ -1,20 +1,24 @@
 ﻿@model Cart
 
 <div>
-    @if (Model.AllItems.Count() > 0)
-    {
-        <small class="navbar-text">
-            <b>produkty w koszyku: @Model.AllItems.Sum(x => x.Quantity)</b>
-        </small>
-    }
-    else
-    {
-        <small class="navbar-text">
-            <b>koszyk jest pusty</b>
-        </small>
-    }
-    <a class="btn btn-sm btn-success navbar-btn" asp-controller="Cart" asp-action="Index"
+    <a class="btn btn-sm navbar-btn" asp-controller="Cart" asp-action="Index"
        asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
         <i class="fa fa-shopping-cart"></i>
     </a>
+    <p class="navbar-text" style="float:right">@Model.AllItems.Sum(x => x.Quantity)</p>
+
+    <!--
+        @if (Model.AllItems.Count() > 0)
+        {
+            <small class="navbar-text">
+                <b>produkty w koszyku: @Model.AllItems.Sum(x => x.Quantity)</b>
+            </small>
+        }
+        else
+        {
+            <small class="navbar-text">
+                <b>koszyk jest pusty</b>
+            </small>
+        }
+    -->
 </div>

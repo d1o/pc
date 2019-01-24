@@ -23,7 +23,7 @@ namespace store.Components
 		{
 			if (_signInManager.IsSignedIn(HttpContext.User))
 			{
-				var user = await _userManager.GetUserAsync(HttpContext.User);
+				AppUser user = await _userManager.GetUserAsync(HttpContext.User);
 				return View("LoggedIn", user);
 			}
 			else

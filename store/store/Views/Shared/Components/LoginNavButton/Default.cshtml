@@ -3,8 +3,10 @@
     ViewData["Title"] = "Default";
 }
 
-<br>
-<a asp-controller="Account" asp-action="Login" asp-route-category="">
-    <button type="button" class="btn btn-secondary btn-block">Zaloguj się</button>
+
+<a asp-controller="Account" asp-action="Register" class="btn btn-danger navbar-btn" style="margin-left:5px; float:right">
+    Rejestracja
 </a>
-<br>
+<a asp-controller="Account" asp-action="Login" class="btn btn-success navbar-btn" style="float:right">
+    Zaloguj się
+</a>

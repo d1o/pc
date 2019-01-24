@@ -3,9 +3,10 @@
     ViewData["Title"] = "Default";
 }
 
-<div>Witaj @Model.Email</div>
-<br>
-<a asp-controller="Account" asp-action="Logout" asp-route-category="">
-    <button type="button" class="btn btn-secondary btn-block">Wyloguj się</button>
+<p class="navbar-text" style="float:left; max-width:60%; white-space:nowrap; overflow:hidden;">Witaj @Model.Email</p>
+<a asp-controller="Account" asp-action="Details" class="btn btn-primary navbar-btn" style="margin-left:5px; float:right">
+    <i class="far fa-user"></i> Twój profil
 </a>
-<br>
+<a asp-controller="Account" asp-action="Logout" class="btn btn-success navbar-btn" style="float:right">
+    Wyloguj się
+</a>

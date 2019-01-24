@@ -12,13 +12,13 @@ namespace store.Controllers
 	[Authorize]
 	public class AccountController : Controller
     {
-		private UserManager<AppUser> userMgr;
-		private SignInManager<AppUser> sIMgr;
+		private UserManager<AppUser> _userManager;
+		private SignInManager<AppUser> _signInManager ;
 
 		public AccountController(UserManager<AppUser> u, SignInManager<AppUser> s)
 		{
-			userMgr = u;
-			sIMgr = s;
+			_userManager = u;
+			_signInManager = s;
 		}
 
 		[AllowAnonymous]
@@ -35,11 +35,11 @@ namespace store.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				AppUser u = await userMgr.FindByEmailAsync(model.Email);
+				AppUser u = await _userManager.FindByEmailAsync(model.Email);
 				if (User != null)
 				{
-					await sIMgr.SignOutAsync();
-					Microsoft.AspNetCore.Identity.SignInResult result = await sIMgr.PasswordSignInAsync(u, model.Password, false, false);
+					await _signInManager.SignOutAsync();
+					Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(u, model.Password, false, false);
 					if (result.Succeeded)
 					{
 						return Redirect(returnUrl ?? "/");
@@ -52,8 +52,56 @@ namespace store.Controllers
 
 		public async Task<IActionResult> Logout()
 		{
-			await sIMgr.SignOutAsync();
+			await _signInManager.SignOutAsync();
 			return Redirect("/");
 		}
+
+		[AllowAnonymous]
+		public ViewResult Register()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		public async Task<IActionResult> Register(CreateUserModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				AppUser user = new AppUser
+				{
+					Email = model.Email,
+					UserName = model.Email
+				};
+
+				IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("List", "Product");
+				}
+				else
+				{
+					foreach (IdentityError e in result.Errors)
+					{
+						ModelState.AddModelError("", e.Description);
+					}
+				}
+			}
+			return View(model);
+		}
+
+		public async Task<IActionResult> Details(string userId, string returnUrl)
+		{
+			if (_signInManager.IsSignedIn(HttpContext.User))
+			{
+				AppUser user = await _userManager.GetUserAsync(HttpContext.User);
+				return View(user);
+			}
+			else
+			{
+				return RedirectToAction(returnUrl);
+
+			}
+		}	
 	}
 }

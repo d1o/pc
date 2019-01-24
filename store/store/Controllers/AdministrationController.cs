@@ -28,13 +28,13 @@ namespace store.Controllers
 			return View(repositoryP.Products);
 		}
 
-		public ViewResult Edit(int productID)
+		public ViewResult EditProduct(int productID)
 		{
 			return View(repositoryP.Products.FirstOrDefault(p => p.ProductID == productID));
 		}
 
 		[HttpPost]
-		public IActionResult EditProd(Product product)
+		public IActionResult EditProduct(Product product)
 		{
 			if (ModelState.IsValid)
 			{
@@ -47,13 +47,13 @@ namespace store.Controllers
 			}
 		}
 
-		public ViewResult Add()
+		public ViewResult AddProduct()
 		{
 			return View(new Product());
 		}
 
 		[HttpPost]
-		public IActionResult Add(Product product)
+		public IActionResult AddProduct(Product product)
 		{
 			if (ModelState.IsValid)
 			{
@@ -95,6 +95,7 @@ namespace store.Controllers
 			return View();
 		}
 
+		[AllowAnonymous]
 		[HttpPost]
 		public async Task<IActionResult> CreateUser(CreateUserModel model)
 		{

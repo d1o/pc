@@ -8,7 +8,7 @@
 <h2>Zarządzaj produktami</h2>
 <br />
 <div class="text-center">
-    <a asp-action="Add" class="btn btn-primary">Dodaj nowy produkt</a>
+    <a asp-action="AddProduct" class="btn btn-primary">Dodaj nowy produkt</a>
 </div>
 <br />
 <table class="table table-bordered table-striped">
@@ -32,7 +32,7 @@
                 <td>@i.Price</td>
                 <td>@i.Category</td>
                 <td class="text-center">
-                    <a asp-action="EditProd" class="btn btn-sm btn-warning" asp-route-productId="@i.ProductID">Edytuj</a>
+                    <a asp-action="EditProduct" class="btn btn-sm btn-warning" asp-route-productId="@i.ProductID">Edytuj</a>
                 </td>
                 <td class="text-center">
                     <form asp-action="DeleteProd" method="post">
