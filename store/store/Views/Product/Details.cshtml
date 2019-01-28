@@ -22,7 +22,10 @@
 </div>
 
 <div>
-    <h3>KOMENTARZE: </h3>
+    <h3>Komentarze</h3>
+
+    @await Component.InvokeAsync("AddCom", new { productId = @Model.Product.ProductID, returnUrl = @ViewBag.rUrl } )
+    <!--
     <form asp-controller="Product" asp-action="AddComment" method="post">
         <div class="form-group">
             <input type="hidden" name="productID" value="@Model.Product.ProductID" />
@@ -35,6 +38,7 @@
             <button class="btn btn-primary" type="submit">Dodaj</button>
         </div>
     </form>
+     -->
 
     @foreach (var i in Model.Comments)
     {

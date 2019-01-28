@@ -46,12 +46,12 @@ namespace store.Controllers
 			Product product = _productRepo.Products.FirstOrDefault(p => p.ProductID == productID);
 			ViewBag.rUrl = returnUrl;
 			ViewBag.imgPath = "~/images/prodcutsimg/" + product.ProductID.ToString() + ".jpg";
-			List<Comment> C = _commentRepo.Comments.Where(c => c.CommentedProdid == product.ProductID).ToList();
+			List<Comment> comments = _commentRepo.Comments.Where(c => c.CommentedProdid == product.ProductID).ToList();
 
 			return View(new DetailsViewModel
 			{
 				Product = product,
-				Comments = C
+				Comments = comments
 			});
 		}
 

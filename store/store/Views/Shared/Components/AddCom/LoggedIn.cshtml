@@ -1,0 +1,15 @@
+﻿@model List<string>
+
+<p class="text-primary">Dodaj komentarz</p>
+
+<form asp-controller="Product" asp-action="AddComment" method="post">
+    <div class="form-group">
+        <input type="hidden" name="productID" value="@Int32.Parse(Model[0])" />
+        <input type="hidden" name="returnUrl" value="@Model[1]" />
+        <input type="hidden" name="author" value="@Model[2]" />
+        <textarea name="body" rows="5"></textarea>
+        <br />
+        <button class="btn btn-primary" type="submit">Dodaj komentarz</button>
+    </div>
+</form>
+     -->
