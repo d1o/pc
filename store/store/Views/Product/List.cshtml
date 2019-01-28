@@ -1,5 +1,12 @@
 ﻿@model ProductsListViewModel
 
+<form>
+    <p>
+        <input style="margin-top:10px" type="text" name="search" method="post" />
+        <input type="submit" value="Szukaj" />
+    </p>
+</form>
+
 @foreach (var prod in Model.Products)
 {
     @Html.Partial("ProductPartialView", prod)

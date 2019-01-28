@@ -17,7 +17,6 @@ namespace store.Models
 
 		[Required(ErrorMessage = "Proszę podać imię i nazwisko odbiorcy")]
 		public string Name { get; set; }
-
 		[Required(ErrorMessage = "Proszę podać ulicę")]
 		public string Street { get; set; }
 		[Required(ErrorMessage = "Proszę podać numer domu")]

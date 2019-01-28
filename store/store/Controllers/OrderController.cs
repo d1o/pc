@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using store.Models;
 
 namespace store.Controllers
 {
-    public class OrderController : Controller
+	[Authorize]
+	public class OrderController : Controller
     {
 		private IOrderRepository repository;
 		private Cart cart;

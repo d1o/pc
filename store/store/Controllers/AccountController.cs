@@ -11,9 +11,9 @@ namespace store.Controllers
 {
 	[Authorize]
 	public class AccountController : Controller
-    {
+	{
 		private UserManager<AppUser> _userManager;
-		private SignInManager<AppUser> _signInManager ;
+		private SignInManager<AppUser> _signInManager;
 
 		public AccountController(UserManager<AppUser> u, SignInManager<AppUser> s)
 		{
@@ -23,10 +23,10 @@ namespace store.Controllers
 
 		[AllowAnonymous]
 		public IActionResult Login(string returnUrl)
-        {
-            ViewBag.returnUrl = returnUrl;
+		{
+			ViewBag.returnUrl = returnUrl;
 			return View();
-        }
+		}
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -90,18 +90,32 @@ namespace store.Controllers
 			return View(model);
 		}
 
-		public async Task<IActionResult> Details(string userId, string returnUrl)
+		public async Task<IActionResult> Details()
 		{
-			if (_signInManager.IsSignedIn(HttpContext.User))
-			{
-				AppUser user = await _userManager.GetUserAsync(HttpContext.User);
-				return View(user);
-			}
-			else
-			{
-				return RedirectToAction(returnUrl);
+			AppUser user = await _userManager.GetUserAsync(HttpContext.User);
+			return View(user);
+		}
 
-			}
-		}	
+		public async Task<IActionResult> EditDetails()
+		{
+			AppUser user = await _userManager.GetUserAsync(HttpContext.User);
+			return View(user);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EditDetails(string name, string street, string streetnumber, string housenumber, string city, string zip)
+		{
+			AppUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+			user.Name = name;
+			user.Street = street;
+			user.StreetNumber = streetnumber;
+			user.HouseNumber = housenumber;
+			user.City = city;
+			user.Zip = zip;
+			await _userManager.UpdateAsync(user);
+
+			return RedirectToAction("Details");
+		}
 	}
 }

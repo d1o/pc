@@ -7,25 +7,26 @@ using store.Models;
 using store.Models.ViewModels;
 
 namespace store.Controllers
-{	
-    public class ProductController : Controller
-    {
-		private IProductRepository repositoryP;
-		private ICommentRepository repositoryC;
+{
+	public class ProductController : Controller
+	{
+		private IProductRepository _productRepo;
+		private ICommentRepository _commentRepo;
 		public int PageSize = 100;
 
-        public ProductController(IProductRepository rep, ICommentRepository com)
+		public ProductController(IProductRepository rep, ICommentRepository com)
 		{
-			repositoryP = rep;
-			repositoryC = com;
+			_productRepo = rep;
+			_commentRepo = com;
 		}
 
-		public ViewResult List(string category, int productPage = 1)
+		public ViewResult List(string category, int productPage = 1, string search = null)
 		{
 			return View(new ProductsListViewModel
 			{
-				Products = repositoryP.Products
+				Products = _productRepo.Products
 					.Where(p => category == null || p.Category == category)
+					.Where(p => search == null || p.Name.Contains(search) || p.Author.Contains(search))
 					.OrderBy(p => p.ProductID)
 					.Skip((productPage - 1) * PageSize)
 					.Take(PageSize),
@@ -33,7 +34,7 @@ namespace store.Controllers
 				{
 					CurrentPage = productPage,
 					ItemsPerPage = PageSize,
-					TotalItems = repositoryP.Products.Count()
+					TotalItems = _productRepo.Products.Count()
 				},
 				ChosenCategory = category
 			});
@@ -42,10 +43,10 @@ namespace store.Controllers
 
 		public ViewResult Details(int productID, string returnUrl)
 		{
-			Product product = repositoryP.Products.FirstOrDefault(p => p.ProductID == productID);
+			Product product = _productRepo.Products.FirstOrDefault(p => p.ProductID == productID);
 			ViewBag.rUrl = returnUrl;
 			ViewBag.imgPath = "~/images/prodcutsimg/" + product.ProductID.ToString() + ".jpg";
-			List<Comment> C = repositoryC.Comments.Where(c => c.CommentedProdid == product.ProductID).ToList();
+			List<Comment> C = _commentRepo.Comments.Where(c => c.CommentedProdid == product.ProductID).ToList();
 
 			return View(new DetailsViewModel
 			{
@@ -63,9 +64,9 @@ namespace store.Controllers
 				CommentedProdid = productID
 			};
 
-			repositoryC.AddComment(c);
+			_commentRepo.AddComment(c);
 
 			return RedirectToAction("Details", new { productID, returnUrl });
 		}
-    }
+	}
 }

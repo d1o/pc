@@ -1,3 +1,13 @@
 ﻿@model AppUser
 
 <h2>Profil konta @Model.Email</h2>
+<br />
+<h3>Aktualnie dane do wysyłki</h3>
+<h4>Odbiorca: <strong>@Model.Name</strong></h4>
+<h4>Ulica: <strong>@Model.Street</strong></h4>
+<h4>Numer domu: <strong>@Model.StreetNumber</strong></h4>
+<h4>Numer mieszkania: <strong>@Model.HouseNumber</strong></h4>
+<h4>Miasto: <strong>@Model.City</strong></h4>
+<h4>Kod pocztowy: <strong>@Model.Zip</strong></h4>
+
+<a class="btn btn-primary" asp-action="EditDetails">Edytuj</a>
