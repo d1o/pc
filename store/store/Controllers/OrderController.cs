@@ -48,9 +48,9 @@ namespace store.Controllers
 			return View(order);
 		}
 
+		[Authorize(Roles = "Admin")]
 		public ViewResult ListOfOrders()
 		{
-			//return View(repository.Orders.Where(o => !o.IsShipped));
 			return View(repository.Orders);
 		}
 

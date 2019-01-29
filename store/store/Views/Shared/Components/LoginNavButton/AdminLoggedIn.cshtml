@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Default";
+}
+
+<a asp-controller="Administration" asp-action="Index" class="btn btn-danger navbar-btn" style="margin-left:5px; float:left">
+    <i class="fas fa-tools"></i> Administracja
+</a>
+<a asp-controller="Account" asp-action="Details" class="btn btn-primary navbar-btn" style="margin-left:5px; float:right">
+    <i class="far fa-user"></i> Twój profil
+</a>
+<a asp-controller="Account" asp-action="Logout" class="btn btn-success navbar-btn" style="float:right">
+    Wyloguj się
+</a>

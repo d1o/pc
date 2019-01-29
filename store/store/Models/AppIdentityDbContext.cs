@@ -21,8 +21,8 @@ namespace store.Models
 			UserManager<AppUser> userMgr = serviceProvider.GetRequiredService<UserManager<AppUser>>();
 			RoleManager<IdentityRole> roleMgr = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-			string username = "admin@test.com";
-			string email = "admin@test.com";
+			string username = "admin@store.com";
+			string email = "admin@store.com";
 			string password = "admin1";
 			string role = "Admin";
 

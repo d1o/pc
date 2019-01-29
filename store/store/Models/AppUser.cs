@@ -8,11 +8,11 @@ namespace store.Models
 {
 	public class AppUser : IdentityUser
 	{
-		public string Name { get; set; } = "test imie";
-		public string Street { get; set; } = "test ulica";
-		public string StreetNumber { get; set; } = "test numer domu1";
-		public string HouseNumber { get; set; } = "test numer domu2";
-		public string City { get; set; } = "test miasto";
-		public string Zip { get; set; } = "test kod pocztowy";
+		public string Name { get; set; }
+		public string Street { get; set; }
+		public string StreetNumber { get; set; }
+		public string HouseNumber { get; set; }
+		public string City { get; set; }
+		public string Zip { get; set; }
 	}
 }

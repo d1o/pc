@@ -8,11 +8,11 @@ namespace store.Models
 {
 	public class LoginModel
 	{
-		[Required]
+		[Required(ErrorMessage = "Adres email jest wymagany.")]
 		[UIHint("email")]
 		public string Email { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Hasło jest wymagane.")]
 		[UIHint("password")]
 		public string Password { get; set; }
 	}

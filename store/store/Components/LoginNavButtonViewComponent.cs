@@ -24,12 +24,14 @@ namespace store.Components
 			if (_signInManager.IsSignedIn(HttpContext.User))
 			{
 				AppUser user = await _userManager.GetUserAsync(HttpContext.User);
+				if (await _userManager.IsInRoleAsync(user, "Admin"))
+				{
+					return View("AdminLoggedIn", user);
+				}
 				return View("LoggedIn", user);
 			}
-			else
-			{
-				return View();
-			}
+			return View();
+
 		}
 
 		/*public IViewComponentResult Invoke()

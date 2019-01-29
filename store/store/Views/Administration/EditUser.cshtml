@@ -1,8 +1,19 @@
 ﻿@model AppUser
 
 <h2>Edycja danych</h2>
-<form asp-action="EditDetails" method="post">
+<div asp-validation-summary="All" class="text-danger"></div>
 
+<form asp-action="EditUser" method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Email">email</label>
+        <input asp-for="@Model.Email class=" form-control" />
+    </div>
+    <div class="form-group">
+        <label for="password">nowe hasło</label>
+        <input name="password" class="form-control" />
+    </div>
+
+    <p>dane do wysyłki</p>
     <div class="form-group">
         <label asp-for="@Model.Name">odbiorca</label>
         <input asp-for="@Model.Name" class="form-control" />
@@ -28,5 +39,5 @@
         <input asp-for="@Model.Zip" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Zapisz</button>
-    <a class="btn btn-danger" asp-action="Details">Anuluj</a>
+    <a class="btn btn-danger" asp-action="ManageUsers">Anuluj</a>
 </form>

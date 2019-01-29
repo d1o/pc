@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using store.Models;
+using store.Models.ViewModels;
 
 namespace store.Controllers
 {
@@ -14,11 +15,14 @@ namespace store.Controllers
 	{
 		private UserManager<AppUser> _userManager;
 		private SignInManager<AppUser> _signInManager;
+		private ICommentRepository _commentRepository;
 
-		public AccountController(UserManager<AppUser> u, SignInManager<AppUser> s)
+
+		public AccountController(UserManager<AppUser> userMnager, SignInManager<AppUser> signInManager, ICommentRepository commentRepository)
 		{
-			_userManager = u;
-			_signInManager = s;
+			_userManager = userMnager;
+			_signInManager = signInManager;
+			_commentRepository = commentRepository;
 		}
 
 		[AllowAnonymous]
@@ -35,17 +39,17 @@ namespace store.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				AppUser u = await _userManager.FindByEmailAsync(model.Email);
-				if (User != null)
+				AppUser user = await _userManager.FindByEmailAsync(model.Email);
+				if (user != null)
 				{
 					await _signInManager.SignOutAsync();
-					Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(u, model.Password, false, false);
+					Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
 					if (result.Succeeded)
 					{
 						return Redirect(returnUrl ?? "/");
 					}
 				}
-				ModelState.AddModelError(nameof(LoginModel.Email), "niepoprawny email lub hasło");
+				ModelState.AddModelError(nameof(LoginModel.Email), "Niepoprawny email lub hasło");
 			}
 			return View(model);
 		}
@@ -60,6 +64,11 @@ namespace store.Controllers
 		public ViewResult Register()
 		{
 			return View();
+		}
+
+		public RedirectToActionResult MoveToProduct(int commentedProductId)
+		{
+			return RedirectToAction("Details", "Product", new { productID = commentedProductId, returnUrl = "/" });
 		}
 
 		[AllowAnonymous]
@@ -93,7 +102,11 @@ namespace store.Controllers
 		public async Task<IActionResult> Details()
 		{
 			AppUser user = await _userManager.GetUserAsync(HttpContext.User);
-			return View(user);
+			return View(new UserDetailsViewModel
+			{
+				User = user,
+				Comments = _commentRepository.Comments.Where(c => c.Author == user.Email).ToList()
+		});
 		}
 
 		public async Task<IActionResult> EditDetails()

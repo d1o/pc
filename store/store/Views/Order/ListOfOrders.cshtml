@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<Order>
 
-@{
-    ViewBag.Title = "Zarządzaj zamówieniami";
-    Layout = "_ALayout";
-}
+<a asp-controller="Administration" asp-action="Index" class="btn btn-danger navbar-btn" style="margin-left:5px; float:left">
+    Powrót
+</a>
+<br /><br />
+
 
 <h3>Niezrealizowane zamówienia:</h3>
 @if (Model.Where(o => !o.IsShipped).Count() > 0)
@@ -17,7 +18,7 @@
                 <th>Miasto</th>
                 <th>Kod pocztowy</th>
                 <th>Kwota</th>
-                <th>Dostarczone</th>
+                <th>Zrealizowane</th>
             </tr>
         </thead>
         <tbody>

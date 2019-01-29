@@ -57,10 +57,13 @@ namespace store.Controllers
 
 		public IActionResult AddComment(string author, string body, int productID, string returnUrl)
 		{
+			Product product = _productRepo.Products.FirstOrDefault(p => p.ProductID == productID);
 			Comment c = new Comment
 			{
 				Author = author,
 				Body = body,
+				ProductName = product.Name,
+				ProductAuthor = product.Author,
 				CommentedProdid = productID
 			};
 

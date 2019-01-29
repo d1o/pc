@@ -2,8 +2,12 @@
 
 @{
     ViewBag.Title = "Zarządzaj produktami";
-    Layout = "_ALayout";
 }
+
+<a asp-controller="Administration" asp-action="Index" class="btn btn-danger navbar-btn" style="margin-left:5px; float:left">
+    Powrót
+</a>
+<br /><br />
 
 <h2>Zarządzaj produktami</h2>
 <br />
@@ -23,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var i in Model) 
+        @foreach (var i in Model)
         {
             <tr>
                 <td>@i.ProductID</td>
