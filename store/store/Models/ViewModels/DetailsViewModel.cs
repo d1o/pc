@@ -9,5 +9,6 @@ namespace store.Models.ViewModels
 	{
 		public Product Product { get; set; }
 		public IEnumerable<Comment> Comments { get; set; }
+		public string CommentAuthor { get; set; }
 	}
 }

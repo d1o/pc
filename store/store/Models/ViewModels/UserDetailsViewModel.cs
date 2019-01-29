@@ -9,6 +9,7 @@ namespace store.Models.ViewModels
 	{
 		public AppUser User { get; set; }
 		public IEnumerable<Comment> Comments { get; set; }
+		public IEnumerable<Order> Orders { get; set; }
 		public string ProductName { get; set; }
 	}
 }

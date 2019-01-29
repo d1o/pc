@@ -11,6 +11,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th>Zamawiający</th>
                 <th>ID</th>
                 <th>Odbiorca</th>
                 <th>Ulica</th>
@@ -24,12 +25,13 @@
             @foreach (var o in Model.Where(o => !o.order.IsShipped))
             {
                 <tr>
-                    <td>@o.order.OrderID</td>
-                    <td>@o.order.Name</td>
-                    <td>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</td>
-                    <td>@o.order.City</td>
-                    <td>@o.order.Zip</td>
-                    <td><strong>@o.total</strong></td>
+                    <td><em>@o.order.Purchaser</em></td>
+                    <td><em>@o.order.OrderID</em></td>
+                    <td><em>@o.order.Name</em></td>
+                    <td><em>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</em></td>
+                    <td><em>@o.order.City</em></td>
+                    <td><em>@o.order.Zip</em></td>
+                    <td><em><strong>@o.total</strong></em></td>
                     <td>
                         <form asp-action="ChangeToShipped" method="post">
                             <input type="hidden" name="orderId" value="@o.order.OrderID" />
@@ -42,6 +44,7 @@
                 @foreach (var i in o.order.Items)
                 {
                     <tr>
+                        <td></td>
                         <td colspan="4">@i.Product.Name - @i.Product.Author</td>
                         <td>@i.Quantity</td>
                         <td>@i.Product.Price</td>
@@ -62,6 +65,7 @@ else
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
+            <th>Zamawiający</th>
             <th>ID</th>
             <th>Odbiorca</th>
             <th>Adres</th>
@@ -74,17 +78,19 @@ else
         @foreach (var o in Model.Where(o => o.order.IsShipped))
         {
             <tr>
-                <td>@o.order.OrderID</td>
-                <td>@o.order.Name</td>
-                <td>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</td>
-                <td>@o.order.City</td>
-                <td>@o.order.Zip</td>
-                <td><strong>@o.total</strong></td>
+                <td><em>@o.order.Purchaser</em></td>
+                <td><em>@o.order.OrderID</em></td>
+                <td><em>@o.order.Name</em></td>
+                <td><em>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</em></td>
+                <td><em>@o.order.City</em></td>
+                <td><em>@o.order.Zip</em></td>
+                <td><em><strong>@o.total</strong></em></td>
             </tr>
             @foreach (var i in o.order.Items)
             {
                 <tr>
-                    <td colspan="3">@i.Product.Name - @i.Product.Author</td>
+                    <td></td>
+                    <td colspan="2">@i.Product.Name - @i.Product.Author</td>
                     <td>@i.Quantity</td>
                     <td>@i.Product.Price</td>
                 </tr>

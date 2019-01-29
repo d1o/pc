@@ -1,49 +1,34 @@
 ﻿@model DetailsViewModel
 
-<div>
-    <div style="float:right">
-        <img img alt="No Image" src="@ViewBag.imgPath" asp-append-version="true" />
-    </div>
-    <div>
+<div class="col-md-12">
+    <div class="col-md-8">
         <h3>@Model.Product.Name - @Model.Product.Author</h3>
         <span class="label label-info">@Model.Product.Price.ToString("c")</span>
-        <h5>@Model.Product.Category</h5>
+        <h5><span class="text-info">kategoria:</span> @Model.Product.Category</h5>
         <p>@Model.Product.Description</p>
     </div>
+    <span class="col-md-4" style="display:inline-block;">
+        <img img alt="No Image" src="@ViewBag.imgPath" asp-append-version="true" style="border:1px solid #ddd;
+        border-radius:8px;max-width:75%;margin-top:5px" />
+    </span>
 </div>
 
-<div>
-    <form id="@Model.Product.ProductID" asp-controller="Cart" asp-action="AddToCart" method="post">
-        <input type="hidden" asp-for="Product.ProductID" />
+<div class="col-md-12">
+    <form style="float:left" id="@Model.Product.ProductID" asp-controller="Cart" asp-action="AddToCartFromDetail" method="post">
+        <input type="hidden" name="productId" value="@Model.Product.ProductID" />
         <input type="hidden" name="returnUrl" value="@ViewBag.rUrl" />
-        <button type="submit" class="btn btn-danger">Do koszyka</button>
-        <a class="btn btn-primary" href="@ViewBag.rUrl">Powrót</a>
+        <button style="float:left" type="submit" class="btn btn-danger">Do koszyka</button>
+        <a class="btn btn-primary" href="@ViewBag.rUrl" style="margin-left:5px">Powrót</a>
     </form>
-</div>
 
-<div>
+    <br />
     <h3>Komentarze</h3>
 
-    @await Component.InvokeAsync("AddCom", new { productId = @Model.Product.ProductID, returnUrl = @ViewBag.rUrl } )
-    <!--
-    <form asp-controller="Product" asp-action="AddComment" method="post">
-        <div class="form-group">
-            <input type="hidden" name="productID" value="@Model.Product.ProductID" />
-            <input type="hidden" name="returnUrl" value="@ViewBag.rUrl" />
-
-            <input name="author" placeholder="Autor" />
-            <br />
-            <textarea name="body" rows="5"></textarea>
-            <br />
-            <button class="btn btn-primary" type="submit">Dodaj</button>
-        </div>
-    </form>
-     -->
+    @await Component.InvokeAsync("AddCom", new { productId = @Model.Product.ProductID, returnUrl = @ViewBag.rUrl })
 
     @foreach (var i in Model.Comments)
     {
-        <p>Autor: @i.Author</p>
-        <p>@i.Body</p>
+        <p><i class="far fa-comment-dots"></i> @i.Body</p>
         <br />
     }
 </div>

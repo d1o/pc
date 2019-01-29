@@ -25,7 +25,7 @@ namespace store.Components
 			if (_signInManager.IsSignedIn(HttpContext.User))
 			{
 				AppUser user = await _userManager.GetUserAsync(HttpContext.User);
-				List<string> ComInfo = new List<string> { productId.ToString(), returnUrl, user.Email };
+				List<string> ComInfo = new List<string> { productId.ToString(), returnUrl, user.Id };
 				return View("LoggedIn", ComInfo);
 			}
 			else

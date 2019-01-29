@@ -6,6 +6,7 @@
     <p>Koszt dostawy: 15 zł</p>
 
     <p>Wprowadź dane potrzebne do wysyłki</p>
+    <input type="hidden" asp-for="Purchaser" value="@ViewBag.Purchaser" />
     <h3>Odbiorca *</h3>
     <div class="form-group">
         <span asp-validation-for="Name" class="text-danger"></span>

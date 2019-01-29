@@ -12,6 +12,48 @@
 
 <a class="btn btn-primary" asp-action="EditDetails">Edytuj</a>
 
+<h3>Twoje zamówiena</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Produkty</th>
+            <th>ilość</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model.Orders)
+        {
+        <tr>
+            <td>@o.OrderID</td>
+            <td>
+                @foreach (var i in o.Items)
+                {
+                    @i.Product.Name
+                    <em> - @i.Product.Author</em><br />
+                }
+            </td>
+            <td>
+                @foreach (var i in o.Items)
+                {
+                    @i.Quantity<br />
+                }
+            </td>
+            @if (o.IsShipped)
+            {
+                <td class="text-success">Zrealizowane</td>
+            }
+            else
+            {
+                <td class="text-danger">W trakcie realizacji</td>
+            }
+        </tr>
+
+        }
+    </tbody>
+</table>
+
 <h3>Opublikowane komentarze</h3>
 @foreach (var c in Model.Comments)
 {

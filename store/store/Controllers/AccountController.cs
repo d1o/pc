@@ -16,13 +16,16 @@ namespace store.Controllers
 		private UserManager<AppUser> _userManager;
 		private SignInManager<AppUser> _signInManager;
 		private ICommentRepository _commentRepository;
+		private IOrderRepository _orderRepository;
 
 
-		public AccountController(UserManager<AppUser> userMnager, SignInManager<AppUser> signInManager, ICommentRepository commentRepository)
+		public AccountController(UserManager<AppUser> userMnager, SignInManager<AppUser> signInManager, ICommentRepository commentRepository,
+			IOrderRepository orderRepository)
 		{
 			_userManager = userMnager;
 			_signInManager = signInManager;
 			_commentRepository = commentRepository;
+			_orderRepository = orderRepository;
 		}
 
 		[AllowAnonymous]
@@ -105,7 +108,8 @@ namespace store.Controllers
 			return View(new UserDetailsViewModel
 			{
 				User = user,
-				Comments = _commentRepository.Comments.Where(c => c.Author == user.Email).ToList()
+				Comments = _commentRepository.Comments.Where(c => c.Author == user.Id).ToList(),
+				Orders = _orderRepository.Orders.Where(o => o.Purchaser == user.Id).ToList()
 		});
 		}
 

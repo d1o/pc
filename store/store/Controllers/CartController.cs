@@ -21,7 +21,7 @@ namespace store.Controllers
 			cart = cartService;
 		}
 
-		public ViewResult Index(string returnUrl)
+		public ViewResult Index(string returnUrl = "/")
 		{
 			return View(new CartIndexViewModel
 			{
@@ -48,6 +48,17 @@ namespace store.Controllers
 				cart.AddItem(product, 1);
 			}
 			return Redirect(returnUrl);
+		}
+
+		public RedirectToActionResult AddToCartFromDetail(int productId, string returnUrl)
+		{
+			Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+
+			if (product != null)
+			{
+				cart.AddItem(product, 1);
+			}
+			return RedirectToAction("Details", "Product", new { returnUrl, productID = productId });
 		}
 
 		public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
