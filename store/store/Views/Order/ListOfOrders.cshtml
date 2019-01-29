@@ -1,13 +1,12 @@
-﻿@model IEnumerable<Order>
+﻿@model IEnumerable<ListOfOrdersViewModel>
 
 <a asp-controller="Administration" asp-action="Index" class="btn btn-danger navbar-btn" style="margin-left:5px; float:left">
     Powrót
 </a>
 <br /><br />
 
-
 <h3>Niezrealizowane zamówienia:</h3>
-@if (Model.Where(o => !o.IsShipped).Count() > 0)
+@if (Model.Where(o => !o.order.IsShipped).Count() > 0)
 {
     <table class="table table-bordered table-striped">
         <thead>
@@ -22,32 +21,30 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var o in Model.Where(o => !o.IsShipped))
+            @foreach (var o in Model.Where(o => !o.order.IsShipped))
             {
                 <tr>
-                    <td>@o.OrderID</td>
-                    <td>@o.Name</td>
-                    <td>@o.Street  @o.StreetNumber @o.HouseNumber</td>
-                    <td>@o.City</td>
-                    <td>@o.Zip</td>
-                    <td>
-
-                    </td>
+                    <td>@o.order.OrderID</td>
+                    <td>@o.order.Name</td>
+                    <td>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</td>
+                    <td>@o.order.City</td>
+                    <td>@o.order.Zip</td>
+                    <td><strong>@o.total</strong></td>
                     <td>
                         <form asp-action="ChangeToShipped" method="post">
-                            <input type="hidden" name="orderId" value="@o.OrderID" />
+                            <input type="hidden" name="orderId" value="@o.order.OrderID" />
                             <button type="submit" class="btn btn-sm btn-succes">
                                 <i class="fas fa-check"></i>
                             </button>
                         </form>
                     </td>
                 </tr>
-                @foreach (var i in o.Items)
+                @foreach (var i in o.order.Items)
                 {
                     <tr>
                         <td colspan="4">@i.Product.Name - @i.Product.Author</td>
                         <td>@i.Quantity</td>
-                        <td></td>
+                        <td>@i.Product.Price</td>
                     </tr>
                 }
             }
@@ -70,24 +67,26 @@ else
             <th>Adres</th>
             <th>Miejscowość</th>
             <th>Kod pocztowy</th>
+            <th>Kwota</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var o in Model.Where(o => o.IsShipped))
+        @foreach (var o in Model.Where(o => o.order.IsShipped))
         {
             <tr>
-                <td>@o.OrderID</td>
-                <td>@o.Name</td>
-                <td>@o.Street  @o.StreetNumber @o.HouseNumber</td>
-                <td>@o.City</td>
-                <td>@o.Zip</td>
+                <td>@o.order.OrderID</td>
+                <td>@o.order.Name</td>
+                <td>@o.order.Street  @o.order.StreetNumber @o.order.HouseNumber</td>
+                <td>@o.order.City</td>
+                <td>@o.order.Zip</td>
+                <td><strong>@o.total</strong></td>
             </tr>
-            @foreach (var i in o.Items)
+            @foreach (var i in o.order.Items)
             {
                 <tr>
                     <td colspan="3">@i.Product.Name - @i.Product.Author</td>
                     <td>@i.Quantity</td>
-                    <td></td>
+                    <td>@i.Product.Price</td>
                 </tr>
             }
         }

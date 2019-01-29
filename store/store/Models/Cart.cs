@@ -52,17 +52,7 @@ namespace store.Models
 			Items.RemoveAll(l => l.Product.ProductID == product.ProductID);
 		}
 
-		/*public virtual decimal TotalValue()
-		{
-			return Items.Sum(k => k.Product.Price * k.Quantity);
-		}*/
-
 		public virtual decimal TotalValue() => Items.Sum(e => e.Product.Price * e.Quantity);
-
-		/*public virtual void Clear()
-		{
-			Items.Clear();
-		}*/
 
 		public virtual void Clear() => Items.Clear();
 

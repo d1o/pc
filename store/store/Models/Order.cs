@@ -14,6 +14,7 @@ namespace store.Models
 		[BindNever]
 		public ICollection<CartItem> Items { get; set; }
 
+		public string Purchaser { get; set; }
 
 		[Required(ErrorMessage = "Proszę podać imię i nazwisko odbiorcy")]
 		public string Name { get; set; }

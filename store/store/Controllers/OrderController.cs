@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using store.Models;
+using store.Models.ViewModels;
 
 namespace store.Controllers
 {
@@ -51,7 +52,22 @@ namespace store.Controllers
 		[Authorize(Roles = "Admin")]
 		public ViewResult ListOfOrders()
 		{
-			return View(repository.Orders);
+			var LOOVM = new List<ListOfOrdersViewModel>();
+			foreach (var o in repository.Orders)
+			{
+				decimal t = 0;
+				foreach (var item in o.Items)
+				{
+					t += item.Quantity * item.Product.Price;
+				};
+
+				LOOVM.Add(new ListOfOrdersViewModel
+				{
+					order = o,
+					total = t
+				});
+			}
+			return View(LOOVM);
 		}
 
 		[HttpPost]
